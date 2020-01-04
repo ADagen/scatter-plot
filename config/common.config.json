@@ -1,0 +1,8 @@
+{
+    "build": {
+        "dist": "./dist/"
+    },
+    "devLocal": {
+        "devServerPort": 3001
+    }
+}
