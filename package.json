@@ -1,12 +1,11 @@
 {
   "name": "scatter-plot",
   "version": "1.0.0",
-  "main": "./src/index.ts",
+  "main": "./src/index.tsx",
   "license": "MIT",
   "scripts": {
     "start": "BUILD_ENV=development babel-node --inspect ./node_modules/.bin/webpack-dev-server --config ./build-tools/webpack.config.js",
-    "lint:diff": "prettier --write `git diff --name-only ; git ls-files --others --exclude-standard`",
-    "lint:last": "prettier --write `git diff --name-only HEAD HEAD~1`"
+    "tslint": "tslint --config tslint.js --project tsconfig.json"
   },
   "legacyBrowserslist": [
     "last 2 versions",
@@ -52,7 +51,6 @@
     "@babel/preset-typescript": "^7.7.7",
     "@storybook/react": "^5.2.8",
     "@types/classnames": "^2.2.9",
-    "@types/node": "^13.1.2",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "@types/react-redux": "^7.1.5",
@@ -67,11 +65,15 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "extend": "^3.0.2",
+    "html-webpack-multi-build-plugin": "^1.1.0",
+    "html-webpack-plugin": "^3.2.0",
     "react-hot-loader": "^4.12.18",
     "typescript": "^3.7.4",
     "webpack": "^4.41.5",
+    "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.1"
+    "webpack-dev-server": "^3.10.1",
+    "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
     "@babel/polyfill": "^7.7.0",
@@ -79,6 +81,8 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "style-loader": "^1.1.2",
+    "thread-loader": "^2.1.3"
   }
 }

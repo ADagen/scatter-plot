@@ -1,5 +1,5 @@
 module.exports = {
-    presets: ['@babel/preset-react', '@babel/preset-flow', '@babel/preset-env'],
+    presets: ['@babel/preset-react', '@babel/preset-typescript', '@babel/preset-env'],
     plugins: [
         // stage-0
 

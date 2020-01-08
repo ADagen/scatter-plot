@@ -7,7 +7,6 @@ import HtmlWebpackMultiBuildPlugin from 'html-webpack-multi-build-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import autoprefixer from 'autoprefixer';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import WebpackVisualizer from 'webpack-visualizer-plugin';
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import * as threadLoader from 'thread-loader';
 
@@ -16,21 +15,25 @@ import npmPackage from '../package';
 import projectConfig from '../config/projectConfig';
 import { Env } from '../config/Env';
 
+const projectRoot = path.join(__dirname, '..');
+const outputPath = path.join(projectRoot, 'dist');
+const srcPath = path.join(projectRoot, 'src');
 
-const outputPath = path.join(__dirname, 'dist');
-const srcPath = path.join(__dirname, 'src');
+console.log('!!!!!!! path.dirname():', __dirname);
+console.log('!!!!!!! projectRoot:', projectRoot);
+console.log('!!!!!!! process.cwd():', process.cwd());
 
 
-const BUILD_ENV = process.env.NODE_ENV === Env.development;
+const ID_DEV_ENV = process.env.NODE_ENV === Env.development;
 
-const templateSourceFile = BUILD_ENV ? 'index-dev.html' : 'index.html';
+const templateSourceFile = ID_DEV_ENV ? 'index-dev.html' : 'index.html';
 const indexHTMLTemplatePath = path.join(srcPath, templateSourceFile);
 
 // thread loader enables move expensive operations to separate node.js processes
 const cpusCount = os.cpus().length;
 const THREAD_LOADER_OPTIONS = {
-    poolRespawn: !BUILD_ENV,
-    poolTimeout: BUILD_ENV ? Infinity : 2000, // set this to Infinity in watch mode - see https://github.com/webpack-contrib/thread-loader
+    poolRespawn: !ID_DEV_ENV,
+    poolTimeout: ID_DEV_ENV ? Infinity : 2000, // set this to Infinity in watch mode - see https://github.com/webpack-contrib/thread-loader
     workers: cpusCount ? cpusCount - 1 : 1, // cpus - 1 because there should be 1 cpu for some stupid plugins
     workerParallelJobs: 2,
 };
@@ -48,7 +51,7 @@ console.info(
     '\n\n\n--------------\n',
     'result project configuration is',
     '\n--------------\n',
-    `BUILD_ENV: ${BUILD_ENV}\n`,
+    `ID_DEV_ENV: ${ID_DEV_ENV}\n`,
     '\n--------------\n',
     JSON.stringify(projectConfig, null, 4),
     '\n--------------\n\n\n',
@@ -57,16 +60,16 @@ console.info(
 export const baseConfig = {
     target: 'web',
 
-    mode: BUILD_ENV,
-    devtool: BUILD_ENV ? 'source-map' : false,
+    mode: process.env.NODE_ENV || Env.development,
+    devtool: ID_DEV_ENV ? 'source-map' : false,
     devServer: {
         port: projectConfig.devLocal.devServerPort,
         contentBase: outputPath,
-        hot: BUILD_ENV,
+        hot: ID_DEV_ENV,
         historyApiFallback: true,
     },
 
-    optimization: BUILD_ENV ? {
+    optimization: ID_DEV_ENV ? {
         minimize: false,
     } : {
         namedModules: false,
@@ -107,14 +110,6 @@ export const baseConfig = {
                     test: /\.css$/,
                     enforce: true,
                 },
-                datepicker: {
-                    // The Curious Case of Benjamin <striked>Button</striked> DatePicker
-                    // This is the special css-chunk for `react-dates`
-                    // @see {@link https://github.com/airbnb/react-dates/issues/992#issuecomment-365275132}
-                    name: 'datepicker',
-                    test: /_datepicker\.css$/,
-                    enforce: true,
-                },
             },
         },
         runtimeChunk: {
@@ -131,39 +126,38 @@ export const baseConfig = {
         new CaseSensitivePathsPlugin(),
 
         new webpack.DefinePlugin({
-            BUILD_ENV,
-            'process.env.NODE_ENV': JSON.stringify(BUILD_ENV),
-            'process.env.BUILD_ENV': JSON.stringify(BUILD_ENV),
-            'process.env.BROWSER': true,
+            ID_DEV_ENV             : JSON.stringify(ID_DEV_ENV),
+            'process.env.NODE_ENV' : JSON.stringify(process.env.NODE_ENV),
+            'process.env.BROWSER'  : true,
         }),
 
         new MiniCssExtractPlugin({
-            filename: BUILD_ENV
+            filename: ID_DEV_ENV
                 ? `${outputPath}css/[name].css`
                 : `${outputPath}css/[name]_[contenthash].css`,
-            chunkFilename: BUILD_ENV
+            chunkFilename: ID_DEV_ENV
                 ? `${outputPath}css/[name].css`
                 : `${outputPath}css/[name]_[contenthash].css`,
         }),
 
         // index.html
         new HtmlWebpackPlugin({
-            inject: BUILD_ENV,
+            inject: ID_DEV_ENV,
             filename: 'index.html', // destination filename (for `dist` directory)
             template: indexHTMLTemplatePath, // source filename
             //...indexHTMLTemplateParams,
             minify: {
-                collapseWhitespace: !BUILD_ENV,
-                collapseInlineTagWhitespace: !BUILD_ENV,
-                minifyCSS: !BUILD_ENV,
-                minifyURLs: !BUILD_ENV,
-                minifyJS: !BUILD_ENV,
+                collapseWhitespace: !ID_DEV_ENV,
+                collapseInlineTagWhitespace: !ID_DEV_ENV,
+                minifyCSS: !ID_DEV_ENV,
+                minifyURLs: !ID_DEV_ENV,
+                minifyJS: !ID_DEV_ENV,
                 removeComments: false,
-                removeRedundantAttributes: !BUILD_ENV,
+                removeRedundantAttributes: !ID_DEV_ENV,
             },
         }),
 
-        ...(BUILD_ENV
+        ...(ID_DEV_ENV
             // DEVELOPMENT
             ? [
                   new BundleAnalyzerPlugin({
@@ -187,25 +181,26 @@ export const baseConfig = {
         rules: [
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
-                include: path.resolve(__dirname, 'src'),
+                include: srcPath,
                 loader: 'file-loader',
                 options: {
-                    name: `${staticPrefixPath}img/[hash].[ext]`,
+                    name: `img/[hash].[ext]`,
                 },
             },
 
             // transform styles
             {
-                test: /\.scss$/,
-                include: path.resolve(__dirname, 'src'),
+                test: /\.css$/,
+                include: srcPath,
                 use: [
-                    BUILD_ENV ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    ID_DEV_ENV ? 'style-loader' : MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
-                            sourceMap: BUILD_ENV,
-                            modules: true,
-                            localIdentName: BUILD_ENV ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
+                            sourceMap: ID_DEV_ENV,
+                            modules: {
+                                localIdentName: ID_DEV_ENV ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
+                            },
                         },
                     },
                     {
@@ -217,18 +212,7 @@ export const baseConfig = {
                                     remove: false,
                                 }),
                             ],
-                            sourceMap: BUILD_ENV,
-                        },
-                    },
-                    // preventing sass-loader from freezing main node thread
-                    {
-                        loader: 'thread-loader',
-                        options: { ...THREAD_LOADER_OPTIONS },
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: BUILD_ENV,
+                            sourceMap: ID_DEV_ENV,
                         },
                     },
                 ],
@@ -241,9 +225,9 @@ export const baseConfig = {
     },
 
     // Don't attempt to continue if there are any errors.
-    bail: !BUILD_ENV,
+    bail: !ID_DEV_ENV,
 
-    cache: BUILD_ENV,
+    cache: ID_DEV_ENV,
 
     stats: {
         assets: false,
@@ -255,7 +239,7 @@ export const baseConfig = {
         colors: process.stdout.isTTY,
         reasons: false,
         hash: false,
-        version: outputPath,
+        version: true,
         timings: true,
         chunks: false,
         chunkGroups: false,
@@ -288,9 +272,9 @@ const legacyConfig = extend(true, {}, baseConfig, {
 });
 
 legacyConfig.module.rules.push({
-    test: /\.ts$/,
+    test: /\.tsx?$/,
     include: [
-        path.resolve(__dirname, 'src'),
+        srcPath,
     ],
     use: [
         // preventing babel-loader from freezing main node thread
@@ -300,7 +284,7 @@ legacyConfig.module.rules.push({
         },
         {
             loader: 'babel-loader',
-            options: babelLoaderOptions(BUILD_ENV, false),
+            options: babelLoaderOptions(ID_DEV_ENV, false),
         },
     ],
 });
@@ -316,10 +300,8 @@ const modernConfig = extend(true, {}, baseConfig, {
     entry: {
         main: [
             'core-js/stable',
-            'intersection-observer',
-            // @see {@link https://github.com/airbnb/react-dates/issues/992#issuecomment-365275132}
-            'react-dates/initialize',
-            'react-dates/lib/css/_datepicker.css',
+            // Polyfills lives here
+            //'intersection-observer',
             npmPackage.main,
         ],
     },
@@ -333,8 +315,8 @@ const modernConfig = extend(true, {}, baseConfig, {
 });
 
 modernConfig.module.rules.push({
-    test: /\.ts$/,
-    include: [path.resolve(__dirname, 'src')],
+    test: /\.tsx?$/,
+    include: [srcPath],
     use: [
         // preventing babel-loader from freezing main node thread
         {
@@ -343,7 +325,7 @@ modernConfig.module.rules.push({
         },
         {
             loader: 'babel-loader',
-            options: babelLoaderOptions(BUILD_ENV, true),
+            options: babelLoaderOptions(ID_DEV_ENV, true),
         },
     ],
 });
@@ -354,4 +336,4 @@ const multiConfig = [legacyConfig, modernConfig];
 // console.log(JSON.stringify(modernConfig, null, 4));
 // console.log('===========================================================================');
 
-export default (BUILD_ENV ? modernConfig : multiConfig);
+export default (ID_DEV_ENV ? modernConfig : multiConfig);

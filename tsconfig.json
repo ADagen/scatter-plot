@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "target": "esnext",
@@ -9,19 +10,29 @@
     "strict": true,
     "isolatedModules": true,
     "esModuleInterop": true,
+    "strictNullChecks": true,
+    "noImplicitAny" : true,
+    "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
     "jsx": "react",
     "lib": [
       "dom",
+      "dom.iterable",
       "es5",
-      "es6"
+      "es6",
+      "esnext"
     ]
   },
   "include": [
-      "src"
+    "src/**/*"
   ],
   "exclude": [
-    "build-tools/**/*",
-    "config/**/*"
+    "node_modules",
+    "build-tools",
+    "config",
+    "**/*.spec.ts"
+  ],
+  "files": [
+    "src/typings.d.ts"
   ]
 }
