@@ -10,8 +10,6 @@
     "strict": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "strictNullChecks": true,
-    "noImplicitAny" : true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
     "jsx": "react",
@@ -33,6 +31,6 @@
     "**/*.spec.ts"
   ],
   "files": [
-    "src/typings.d.ts"
+    "node_modules/redux-create-reducer/index.d.ts"
   ]
 }

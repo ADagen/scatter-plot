@@ -4,8 +4,6 @@ import { TitleMain } from '../TitleMain';
 import { TitleX } from '../TitleX';
 import { TitleY } from '../TitleY';
 
-const LOGO_SRC = "https://cdn.worldvectorlogo.com/logos/react.svg";
-
 type AppProps = {
 
 };

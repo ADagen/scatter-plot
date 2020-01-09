@@ -19,21 +19,16 @@ const projectRoot = path.join(__dirname, '..');
 const outputPath = path.join(projectRoot, 'dist');
 const srcPath = path.join(projectRoot, 'src');
 
-console.log('!!!!!!! path.dirname():', __dirname);
-console.log('!!!!!!! projectRoot:', projectRoot);
-console.log('!!!!!!! process.cwd():', process.cwd());
+const IS_DEV_ENV = process.env.NODE_ENV === Env.DEVELOPMENT;
 
-
-const ID_DEV_ENV = process.env.NODE_ENV === Env.development;
-
-const templateSourceFile = ID_DEV_ENV ? 'index-dev.html' : 'index.html';
+const templateSourceFile = IS_DEV_ENV ? 'index-dev.html' : 'index.html';
 const indexHTMLTemplatePath = path.join(srcPath, templateSourceFile);
 
 // thread loader enables move expensive operations to separate node.js processes
 const cpusCount = os.cpus().length;
 const THREAD_LOADER_OPTIONS = {
-    poolRespawn: !ID_DEV_ENV,
-    poolTimeout: ID_DEV_ENV ? Infinity : 2000, // set this to Infinity in watch mode - see https://github.com/webpack-contrib/thread-loader
+    poolRespawn: !IS_DEV_ENV,
+    poolTimeout: IS_DEV_ENV ? Infinity : 2000, // set this to Infinity in watch mode - see https://github.com/webpack-contrib/thread-loader
     workers: cpusCount ? cpusCount - 1 : 1, // cpus - 1 because there should be 1 cpu for some stupid plugins
     workerParallelJobs: 2,
 };
@@ -51,25 +46,27 @@ console.info(
     '\n\n\n--------------\n',
     'result project configuration is',
     '\n--------------\n',
-    `ID_DEV_ENV: ${ID_DEV_ENV}\n`,
+    `ID_DEV_ENV: ${IS_DEV_ENV}\n`,
     '\n--------------\n',
     JSON.stringify(projectConfig, null, 4),
     '\n--------------\n\n\n',
 );
 
+const RESOLVE_EXTENSIONS = [".js", ".jsx", ".ts", ".tsx", ".d.ts", ".json", ".css"];
+
 export const baseConfig = {
     target: 'web',
 
-    mode: process.env.NODE_ENV || Env.development,
-    devtool: ID_DEV_ENV ? 'source-map' : false,
+    mode: IS_DEV_ENV ? Env.DEVELOPMENT : Env.PRODUCTION,
+    devtool: IS_DEV_ENV ? 'source-map' : false,
     devServer: {
         port: projectConfig.devLocal.devServerPort,
         contentBase: outputPath,
-        hot: ID_DEV_ENV,
+        hot: IS_DEV_ENV,
         historyApiFallback: true,
     },
 
-    optimization: ID_DEV_ENV ? {
+    optimization: IS_DEV_ENV ? {
         minimize: false,
     } : {
         namedModules: false,
@@ -120,44 +117,45 @@ export const baseConfig = {
 
     resolve: {
         symlinks: false,
+        extensions: RESOLVE_EXTENSIONS,
     },
 
     plugins: [
         new CaseSensitivePathsPlugin(),
 
         new webpack.DefinePlugin({
-            ID_DEV_ENV             : JSON.stringify(ID_DEV_ENV),
+            'IS_DEV_ENV'           : JSON.stringify(IS_DEV_ENV),
             'process.env.NODE_ENV' : JSON.stringify(process.env.NODE_ENV),
-            'process.env.BROWSER'  : true,
+            'process.env.BROWSER'  : JSON.stringify(true),
         }),
 
         new MiniCssExtractPlugin({
-            filename: ID_DEV_ENV
-                ? `${outputPath}css/[name].css`
-                : `${outputPath}css/[name]_[contenthash].css`,
-            chunkFilename: ID_DEV_ENV
-                ? `${outputPath}css/[name].css`
-                : `${outputPath}css/[name]_[contenthash].css`,
+            filename: IS_DEV_ENV
+                ? `${outputPath}/css/[name].css`
+                : `${outputPath}/css/[name]_[contenthash].css`,
+            chunkFilename: IS_DEV_ENV
+                ? `${outputPath}/css/[name].css`
+                : `${outputPath}/css/[name]_[contenthash].css`,
         }),
 
         // index.html
         new HtmlWebpackPlugin({
-            inject: ID_DEV_ENV,
+            inject: IS_DEV_ENV,
             filename: 'index.html', // destination filename (for `dist` directory)
             template: indexHTMLTemplatePath, // source filename
             //...indexHTMLTemplateParams,
             minify: {
-                collapseWhitespace: !ID_DEV_ENV,
-                collapseInlineTagWhitespace: !ID_DEV_ENV,
-                minifyCSS: !ID_DEV_ENV,
-                minifyURLs: !ID_DEV_ENV,
-                minifyJS: !ID_DEV_ENV,
+                collapseWhitespace: !IS_DEV_ENV,
+                collapseInlineTagWhitespace: !IS_DEV_ENV,
+                minifyCSS: !IS_DEV_ENV,
+                minifyURLs: !IS_DEV_ENV,
+                minifyJS: !IS_DEV_ENV,
                 removeComments: false,
-                removeRedundantAttributes: !ID_DEV_ENV,
+                removeRedundantAttributes: !IS_DEV_ENV,
             },
         }),
 
-        ...(ID_DEV_ENV
+        ...(IS_DEV_ENV
             // DEVELOPMENT
             ? [
                   new BundleAnalyzerPlugin({
@@ -193,13 +191,13 @@ export const baseConfig = {
                 test: /\.css$/,
                 include: srcPath,
                 use: [
-                    ID_DEV_ENV ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    IS_DEV_ENV ? 'style-loader' : MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
-                            sourceMap: ID_DEV_ENV,
+                            sourceMap: IS_DEV_ENV,
                             modules: {
-                                localIdentName: ID_DEV_ENV ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
+                                localIdentName: IS_DEV_ENV ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
                             },
                         },
                     },
@@ -212,7 +210,7 @@ export const baseConfig = {
                                     remove: false,
                                 }),
                             ],
-                            sourceMap: ID_DEV_ENV,
+                            sourceMap: IS_DEV_ENV,
                         },
                     },
                 ],
@@ -225,9 +223,9 @@ export const baseConfig = {
     },
 
     // Don't attempt to continue if there are any errors.
-    bail: !ID_DEV_ENV,
+    bail: !IS_DEV_ENV,
 
-    cache: ID_DEV_ENV,
+    cache: IS_DEV_ENV,
 
     stats: {
         assets: false,
@@ -258,7 +256,7 @@ const legacyConfig = extend(true, {}, baseConfig, {
         main: [
             'core-js/stable',
             'regenerator-runtime/runtime',
-            'intersection-observer',
+            //'intersection-observer',
             npmPackage.main,
         ],
     },
@@ -284,7 +282,7 @@ legacyConfig.module.rules.push({
         },
         {
             loader: 'babel-loader',
-            options: babelLoaderOptions(ID_DEV_ENV, false),
+            options: babelLoaderOptions(IS_DEV_ENV, false),
         },
     ],
 });
@@ -325,7 +323,7 @@ modernConfig.module.rules.push({
         },
         {
             loader: 'babel-loader',
-            options: babelLoaderOptions(ID_DEV_ENV, true),
+            options: babelLoaderOptions(IS_DEV_ENV, true),
         },
     ],
 });
@@ -336,4 +334,4 @@ const multiConfig = [legacyConfig, modernConfig];
 // console.log(JSON.stringify(modernConfig, null, 4));
 // console.log('===========================================================================');
 
-export default (ID_DEV_ENV ? modernConfig : multiConfig);
+export default (IS_DEV_ENV ? modernConfig : multiConfig);

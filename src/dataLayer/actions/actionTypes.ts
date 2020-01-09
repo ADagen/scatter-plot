@@ -1,0 +1,5 @@
+export enum actionTypes {
+    PLOT_LOAD_START = 'PLOT_LOAD_START',
+    PLOT_LOAD_SUCCESS = 'PLOT_LOAD_SUCCESS',
+    PLOT_LOAD_ERROR = 'PLOT_LOAD_ERROR',
+}

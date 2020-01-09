@@ -4,7 +4,7 @@
   "main": "./src/index.tsx",
   "license": "MIT",
   "scripts": {
-    "start": "BUILD_ENV=development babel-node --inspect ./node_modules/.bin/webpack-dev-server --config ./build-tools/webpack.config.js",
+    "start": "NODE_ENV=development babel-node --inspect ./node_modules/.bin/webpack-dev-server --config ./build-tools/webpack.config.js",
     "tslint": "tslint --config tslint.js --project tsconfig.json"
   },
   "legacyBrowserslist": [
@@ -55,6 +55,7 @@
     "@types/react-dom": "^16.9.4",
     "@types/react-redux": "^7.1.5",
     "@types/redux": "^3.6.0",
+    "@types/webpack-env": "^1.15.0",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "eslint": "^6.8.0",
@@ -68,6 +69,7 @@
     "html-webpack-multi-build-plugin": "^1.1.0",
     "html-webpack-plugin": "^3.2.0",
     "react-hot-loader": "^4.12.18",
+    "redux-devtools-extension": "^2.13.8",
     "typescript": "^3.7.4",
     "webpack": "^4.41.5",
     "webpack-bundle-analyzer": "^3.6.0",
@@ -82,7 +84,9 @@
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
     "redux": "^4.0.5",
+    "redux-saga": "^1.1.3",
     "style-loader": "^1.1.2",
-    "thread-loader": "^2.1.3"
+    "thread-loader": "^2.1.3",
+    "unionize": "^3.0.2"
   }
 }

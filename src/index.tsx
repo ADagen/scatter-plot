@@ -1,27 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { App } from './components/App';
+import { configureStore } from './dataLayer/configureStore';
+import { plotActions } from './dataLayer/actions';
 import './index.css';
 
-interface ITest {
-    f: number;
+const store = configureStore();
+store.runSaga();
+
+const root = (
+    <Provider store={store}>
+        <App />
+    </Provider>
+);
+
+/**
+ * Точка входа в приложение, запускает рендер компонентов
+ * и стартует первую сагу (которая загружает дефолтный сет точек).
+ * В приложении с роутером вместо саги будет стартовать роутер.
+ */
+function main(): void {
+    ReactDOM.render(root, document.getElementsByClassName('root')[0]);
+    // start first saga here
+    store.dispatch(plotActions.PLOT_LOAD_START());
 }
 
-const check: ITest = {
-    f: 123,
-};
-
-class Animal {
-    public name: string;
-    public constructor(theName: string) { this.name = theName; }
-    public move(distanceInMeters: number) {
-        console.log(`${this.name} moved ${distanceInMeters}m.`);
-    }
+const readyStates = ['complete', 'loaded', 'interactive'];
+if (readyStates.includes(document.readyState) && document.body) {
+    main();
+} else {
+    document.addEventListener('DOMContentLoaded', main, false);
 }
-
-const animal = new Animal('Betty');
-animal.move(5);
-
-console.log('It works', check.f);
-
-ReactDOM.render(<App />, document.getElementsByClassName('app')[0]);
