@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { RootState } from './RootState';
 import { rootSaga } from './sagas';
 import { rootReducer, initialState } from './reducers';
-import { AllAction } from './actions';
+import { AllAction, PlotAction } from './actions';
 
 export type SagaStore<S, A extends Action> = Store<S, A> & {
     rootTask: Task | null;
@@ -31,15 +31,16 @@ export function configureStore() {
     }
 
     // https://github.com/rackt/redux/releases/tag/v3.1.0
-    const store = createStore(rootReducer, initialState, enhancer);
+    const store = createStore<RootState, PlotAction, {}, {}>(rootReducer, initialState, enhancer);
 
-    const enchantedStore: SagaStore<RootState, AllAction> = {
+    const enchantedStore = {
         ...store,
         rootTask: null,
         // https://github.com/redux-saga/redux-saga/issues/255
         runSaga: () => enchantedStore.rootTask = sagaMiddleware.run(rootSaga),
         stopSaga: () => enchantedStore.dispatch(END),
-    };
+    } as SagaStore<RootState, AllAction>;
+    // AllAction включают в себя сервисные экшены ридакс-саги
 
     // Hot reload reducers (requires Webpack or Browserify HMR to be enabled)
     if (IS_DEV_ENV && module.hot) {
