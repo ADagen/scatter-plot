@@ -29,8 +29,5 @@
     "build-tools",
     "config",
     "**/*.spec.ts"
-  ],
-  "files": [
-    "node_modules/redux-create-reducer/index.d.ts"
   ]
 }

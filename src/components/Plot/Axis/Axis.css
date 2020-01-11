@@ -1,0 +1,32 @@
+.root {
+
+}
+
+.tick {
+
+}
+
+.line {
+    fill: none;
+    stroke: black;
+    stroke-width: 2px;
+    shape-rendering: crispEdges;
+}
+
+.basisLine {
+    fill: none;
+    stroke: lightgray;
+    stroke-width: 2px;
+    shape-rendering: crispEdges;
+}
+
+.text {
+    text-anchor: middle;
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.basisText {
+    stroke: lightgray;
+    font-size: 20px;
+}

@@ -1,4 +1,5 @@
 import { createSelector, createStructuredSelector } from 'reselect';
+import { plotViewSize } from '../../core/constants';
 import { RootState, PlotPoints } from '../RootState';
 import { selectPointsX, selectPointsY } from './points';
 
@@ -7,6 +8,14 @@ export type Extremums = {
     maxX: number,
     minY: number,
     maxY: number,
+}
+
+/**
+ * Отношение экранных координат к мировым по осям
+ */
+export type Scales = {
+    scaleX: number,
+    scaleY: number,
 }
 
 // Math.min & Math.max будут болеть при большом количестве точек;
@@ -29,3 +38,11 @@ export const selectExtremums = createStructuredSelector<RootState, Extremums>({
     minY: selectMinimaY,
     maxY: selectMaximaY,
 });
+
+export const selectScales = createSelector<RootState, Extremums, Scales>(
+    selectExtremums,
+    ({ minX, maxX, minY, maxY }) => ({
+        scaleX: plotViewSize / (maxX - minX),
+        scaleY: plotViewSize / (maxY - minY),
+    }),
+);

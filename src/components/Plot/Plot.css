@@ -1,0 +1,10 @@
+.root {
+    padding-top: 20px
+}
+
+.plotContainer {
+    border: 1px solid red;
+    width: 80vmin;
+    height: 80vmin;
+    margin: 40px auto;
+}
