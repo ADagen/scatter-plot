@@ -1,13 +1,13 @@
 import React from 'react';
 import cx from 'classnames';
-import s from './TitleMain.css';
+import s from './Title.css';
 
-export type TitleMainProps = {
+export type TitleProps = {
     text: string;
     className?: string;
 }
 
-const TitleMain: React.FC<TitleMainProps> = ({
+const Title: React.FC<TitleProps> = ({
     text,
     className,
 }) => {
@@ -19,4 +19,4 @@ const TitleMain: React.FC<TitleMainProps> = ({
     );
 };
 
-export { TitleMain };
+export { Title };

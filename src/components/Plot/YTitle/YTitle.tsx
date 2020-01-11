@@ -1,8 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
-import s from './TitleX.css';
+import s from './YTitle.css';
 
-export type TitleXProps = {
+export type YTitleProps = {
     text: string;
     className?: string;
 }
@@ -12,7 +12,7 @@ export type TitleXProps = {
  * @param {string} text
  * @param {string} [className]
  */
-const TitleX: React.FC<TitleXProps> = ({
+const YTitle: React.FC<YTitleProps> = ({
     text,
     className,
 }) => {
@@ -24,4 +24,4 @@ const TitleX: React.FC<TitleXProps> = ({
     );
 };
 
-export { TitleX };
+export { YTitle };

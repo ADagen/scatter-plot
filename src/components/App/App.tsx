@@ -1,19 +1,30 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import s from './App.css';
-import { TitleMain } from '../TitleMain';
-import { TitleX } from '../TitleX';
-import { TitleY } from '../TitleY';
+import { Loader } from '../Loader';
+import { Plot } from '../Plot';
+import { Error } from '../Error';
+import {
+    selectIsLoading,
+    selectIsReady,
+    selectIsError,
+} from '../../dataLayer/selectors';
 
 type AppProps = {
 
 };
 
 const App: React.FC<AppProps> = () => {
+
+    const isLoading = useSelector(selectIsLoading);
+    const isReady = useSelector(selectIsReady);
+    const isError = useSelector(selectIsError);
+
     return (
         <div className={s.root}>
-            <TitleMain text={'title1'} />
-            <TitleX text={'title_x'} />
-            <TitleY text={'title_y'} />
+            {isLoading && <Loader />}
+            {isReady && <Plot />}
+            {isError && <Error />}
         </div>
     );
 };

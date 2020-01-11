@@ -1,4 +1,4 @@
-import { Point } from './Point';
+import { Point } from './Geometry';
 
 export type APIResponse = {
     points: Array<Point>;
