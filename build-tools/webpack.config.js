@@ -132,11 +132,11 @@ export const baseConfig = {
         // ${outputPath}
         new MiniCssExtractPlugin({
             filename: IS_DEV_ENV
-                ? `/css/[name].css`
-                : `/css/[name]_[contenthash].css`,
+                ? `css/[name].css`
+                : `${npmPackage.name}/css/[name]_[contenthash].css`,
             chunkFilename: IS_DEV_ENV
-                ? `/css/[name].css`
-                : `/css/[name]_[contenthash].css`,
+                ? `css/[name].css`
+                : `${npmPackage.name}/css/[name]_[contenthash].css`,
         }),
 
         // index.html
@@ -266,7 +266,7 @@ const legacyConfig = extend(true, {}, baseConfig, {
         path: outputPath,
         filename: `js/[name]_[hash]_legacy.js`,
         chunkFilename: `js/[name]_[hash]_legacy.js`,
-        publicPath: '/',
+        publicPath: IS_DEV_ENV ? '/' : `/${npmPackage.name}/`,
     },
 });
 
@@ -309,7 +309,7 @@ const modernConfig = extend(true, {}, baseConfig, {
         path: outputPath,
         filename: `js/[name]_[hash].js`,
         chunkFilename: `js/[name]_[hash].js`,
-        publicPath: '/',
+        publicPath: IS_DEV_ENV ? '/' : `/${npmPackage.name}/`,
     },
 });
 
