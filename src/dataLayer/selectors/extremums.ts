@@ -1,6 +1,6 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 import { plotViewSize } from '../../core/constants';
-import { RootState, PlotPoints } from '../RootState';
+import { RootState } from '../RootState';
 import { selectPointsX, selectPointsY } from './points';
 
 export type Extremums = {

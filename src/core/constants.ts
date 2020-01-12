@@ -44,6 +44,12 @@ export const tickOffsetY = plotViewSize / ticksCountY;
 export const ticksOffsetsX = new Array(ticksCountX + 1)
     .fill(true)
     .map((_, index) => index * tickOffsetX);
+
 export const ticksOffsetsY = new Array(ticksCountY + 1)
     .fill(true)
     .map((_, index) => index * tickOffsetY);
+
+/**
+ * Размер точек диаграммы
+ */
+export const valuePointSize = 20;

@@ -3,8 +3,29 @@
 }
 
 .plotContainer {
-    border: 1px solid red;
+    border: 1px solid #eee;
     width: 80vmin;
     height: 80vmin;
     margin: 40px auto;
+}
+
+.textData {
+    font-size: 12px;
+}
+
+.section {
+    padding: 8px 4px;
+}
+
+.section mark {
+    margin-left: 4px;
+}
+
+.dataset {
+    column-count: 3;
+    column-gap: 0;
+}
+
+.dataValue {
+
 }

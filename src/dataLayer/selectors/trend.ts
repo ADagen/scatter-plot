@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect';
-import { RootState, PlotPoints } from '../RootState';
+import { RootState, Dataset } from '../RootState';
 import { LinearFunction } from '../Geometry';
 import { selectPoints } from './points';
 
 /**
  * Получение коэффициентов функции линейной регрессии методом наименьших квадратов
  */
-export const selectParameterValues = createSelector<RootState, PlotPoints, LinearFunction>(
+export const selectTrend = createSelector<RootState, Dataset, LinearFunction>(
     selectPoints,
     points => {
 

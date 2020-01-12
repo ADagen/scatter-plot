@@ -1,5 +1,6 @@
 import React from 'react';
-import cx from 'classnames';
+import classNames from 'classnames';
+import { screenViewSize } from '../../../core/constants';
 import s from './YTitle.css';
 
 export type YTitleProps = {
@@ -15,13 +16,17 @@ export type YTitleProps = {
 const YTitle: React.FC<YTitleProps> = ({
     text,
     className,
-}) => {
-    return (
-        <span
-            children={text}
-            className={cx(className, s.root)}
-        />
-    );
-};
+}) => (
+    <text
+        x={screenViewSize / 2}
+        y={screenViewSize + 10}
+        //y={screenViewSize - 40}
+        className={classNames(className, s.root)}
+        children={text}
+        dominantBaseline="hanging"
+        textAnchor="middle"
+        transform="rotate(-90 0 1200)"
+    />
+);
 
 export { YTitle };

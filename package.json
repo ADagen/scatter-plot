@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=development babel-node --inspect ./node_modules/.bin/webpack-dev-server --config ./build-tools/webpack.config.js",
-    "tslint": "tslint --config tslint.js --project tsconfig.json"
+    "tslint": "tslint --config tslint.js --project tsconfig.json",
+    "build": "rimraf dist && NODE_ENV=production babel-node ./node_modules/.bin/webpack --config ./build-tools/webpack.config.js --progress --colors"
   },
   "legacyBrowserslist": [
     "last 2 versions",
@@ -70,6 +71,7 @@
     "html-webpack-plugin": "^3.2.0",
     "react-hot-loader": "^4.12.18",
     "redux-devtools-extension": "^2.13.8",
+    "rimraf": "^3.0.0",
     "typescript": "^3.7.4",
     "webpack": "^4.41.5",
     "webpack-bundle-analyzer": "^3.6.0",

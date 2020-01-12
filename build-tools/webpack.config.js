@@ -129,13 +129,14 @@ export const baseConfig = {
             'process.env.BROWSER'  : JSON.stringify(true),
         }),
 
+        // ${outputPath}
         new MiniCssExtractPlugin({
             filename: IS_DEV_ENV
-                ? `${outputPath}/css/[name].css`
-                : `${outputPath}/css/[name]_[contenthash].css`,
+                ? `/css/[name].css`
+                : `/css/[name]_[contenthash].css`,
             chunkFilename: IS_DEV_ENV
-                ? `${outputPath}/css/[name].css`
-                : `${outputPath}/css/[name]_[contenthash].css`,
+                ? `/css/[name].css`
+                : `/css/[name]_[contenthash].css`,
         }),
 
         // index.html

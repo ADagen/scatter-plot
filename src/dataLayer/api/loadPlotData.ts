@@ -1,5 +1,5 @@
 import { APIResponse } from '../APIResponse';
-import example from '../../../stub/example_1.json';
+import example from '../../../stub/example_2.json';
 
 export const loadPlotData = () =>
     new Promise<APIResponse>((resolve, reject) => {

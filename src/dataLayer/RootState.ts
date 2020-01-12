@@ -1,10 +1,10 @@
 import { Point } from './Geometry';
 import { DataState } from './DataState';
 
-export type PlotPoints = ReadonlyArray<Point>;
+export type Dataset = ReadonlyArray<Point>;
 
 export type PlotData = {
-    readonly points: PlotPoints;
+    readonly points: Dataset;
     readonly title: string;
     readonly xTitle?: string;
     readonly yTitle?: string;
