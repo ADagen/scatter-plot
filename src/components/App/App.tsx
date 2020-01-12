@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import s from './App.css';
 import { Loader } from '../Loader';
@@ -23,7 +23,7 @@ function useControlPanel() {
 
     const dispatch = useDispatch();
     const queryDatasetBase = (url: string) => dispatch(plotActions.PLOT_LOAD_START({ url }));
-    const queryDatasetCustom = () => queryDatasetBase(urlInput);
+    const queryDatasetCustom = useCallback(() => queryDatasetBase(urlInput), [urlInput]);
 
     return {
         urlInput,
