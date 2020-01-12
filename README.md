@@ -1,0 +1,1 @@
+![](https://github.com/adagen/scatter-plot/workflows/build_and_deploy_static/badge.svg)

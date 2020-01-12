@@ -1,4 +1,4 @@
-name: deploy to gh-pages
+name: build_and_deploy_static
 
 on:
   push:
@@ -17,4 +17,7 @@ jobs:
       - name: Deploy site to gh-pages branch
         uses: alex-page/blazing-fast-gh-pages-deploy@v1.1.0
         with:
+          site-directory: dist
+          commit-message: "chore: deploy to gh-pages"
           repo-token: ${{ secrets.GH_PAT }}
+          deploy-branch: gh-pages
