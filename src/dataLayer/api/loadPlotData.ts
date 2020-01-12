@@ -1,9 +1,11 @@
-import { APIResponse } from '../APIResponse';
-import example from '../../../stub/example_2.json';
-
-export const loadPlotData = () =>
-    new Promise<APIResponse>((resolve, reject) => {
-        // const isSuccess = Math.random() > 0.2;
-        const isSuccess = true;
-        setTimeout(isSuccess ? () => resolve(example) : reject, 500);
-    });
+export const loadPlotData = async (url: string) => {
+    try {
+        const response = await fetch(url);
+        if (response?.status === 200) {
+            return response.json();
+        }
+        return Promise.reject(response);
+    } catch(error) {
+        return Promise.reject(error);
+    }
+};

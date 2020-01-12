@@ -1,11 +1,20 @@
 import { call, put } from 'redux-saga/effects';
 import { takeRestartable } from './takeRestartable';
-import { actionTypes, plotActions } from '../actions';
+import { actionTypes, plotActions, DatasetQueryPayload } from '../actions';
+import { dataset1 } from '../../core/predefinedDatasets';
 import { loadPlotData } from '../api';
 
-function* handlePlotLoadStart() {
-    const plotData = yield call(loadPlotData);
-    yield put(plotActions.PLOT_LOAD_SUCCESS(plotData));
+/**
+ * Сценарий загрузки данных при старте приложения.
+ */
+function* handlePlotLoadStart({ payload }: { payload: DatasetQueryPayload }) {
+    const url = payload.url || dataset1;
+    try {
+        const plotData = yield call(loadPlotData, url);
+        yield put(plotActions.PLOT_LOAD_SUCCESS(plotData));
+    } catch {
+        yield put(plotActions.PLOT_LOAD_ERROR());
+    }
 }
 
-export const rootPlotSaga = takeRestartable(actionTypes.PLOT_LOAD_START, handlePlotLoadStart);
+export const startSaga = takeRestartable(actionTypes.PLOT_LOAD_START, handlePlotLoadStart);

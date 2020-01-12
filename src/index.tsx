@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { App } from './components/App';
 import { configureStore } from './dataLayer/configureStore';
 import { plotActions } from './dataLayer/actions';
+import { dataset1 } from './core/predefinedDatasets';
 import './index.css';
 
 const store = configureStore();
@@ -22,8 +23,7 @@ const root = (
  */
 function main(): void {
     ReactDOM.render(root, document.getElementsByClassName('root')[0]);
-    // start first saga here
-    store.dispatch(plotActions.PLOT_LOAD_START());
+    store.dispatch(plotActions.PLOT_LOAD_START({ url: dataset1 }));
 }
 
 const readyStates = ['complete', 'loaded', 'interactive'];
