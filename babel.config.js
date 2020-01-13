@@ -15,11 +15,13 @@ module.exports = {
         '@babel/plugin-proposal-export-namespace-from',
         '@babel/plugin-proposal-logical-assignment-operators',
         [
+            // TODO: удалить в рамках перехода на babel@7.8.0 https://babeljs.io/blog/2020/01/11/7.8.0
             '@babel/plugin-proposal-nullish-coalescing-operator',
             {
                 loose: true,
             },
         ],
+        // TODO: удалить в рамках перехода на babel@7.8.0 https://babeljs.io/blog/2020/01/11/7.8.0
         '@babel/plugin-proposal-optional-chaining',
 
         // stage-2
@@ -28,6 +30,7 @@ module.exports = {
         '@babel/plugin-proposal-throw-expressions',
 
         // stage-3
+        // TODO: удалить в рамках перехода на babel@7.8.0 https://babeljs.io/blog/2020/01/11/7.8.0
         '@babel/plugin-syntax-dynamic-import',
         '@babel/plugin-syntax-import-meta',
         [
