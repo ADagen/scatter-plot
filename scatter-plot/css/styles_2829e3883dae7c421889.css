@@ -1,42 +1,3 @@
-._3neFT {
-    text-align: center;
-}
-
-.Ee3SM {
-    height: 40vmin;
-    pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .Ee3SM {
-        animation: _111Ft infinite 20s linear;
-    }
-}
-
-._2N_41 {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-}
-
-._3aKtE {
-    color: #61dafb;
-}
-
-@keyframes _111Ft {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 .HArg_ {
     margin-top: 150px;
 }
@@ -131,6 +92,45 @@
 ._23c0j {
     color: red;
     margin: 100px;
+}
+
+._3neFT {
+    text-align: center;
+}
+
+.Ee3SM {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .Ee3SM {
+        animation: _111Ft infinite 20s linear;
+    }
+}
+
+._2N_41 {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+._3aKtE {
+    color: #61dafb;
+}
+
+@keyframes _111Ft {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 body {
