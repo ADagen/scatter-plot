@@ -1,6 +1,6 @@
+import { DataState } from 'core/DataState';
 import { actionTypes, plotActions, PlotAction } from '../actions';
 import { RootState } from '../RootState';
-import { DataState } from '../DataState';
 
 export const initialState: RootState = {
     dataState: DataState.UNKNOWN,

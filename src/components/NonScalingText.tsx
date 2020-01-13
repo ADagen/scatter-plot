@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { selectScales } from '../dataLayer/selectors';
+import { selectScales } from 'dataLayer/selectors';
 
 export type NonScalingTextProps = React.SVGProps<SVGTextElement>;
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { App } from './components/App';
-import { configureStore } from './dataLayer/configureStore';
-import { plotActions } from './dataLayer/actions';
-import { dataset1 } from './core/predefinedDatasets';
+import { App } from 'components/App';
+import { configureStore } from 'dataLayer/configureStore';
+import { plotActions } from 'dataLayer/actions';
+import { dataset1 } from 'core/predefinedDatasets';
 import './index.css';
 
 const store = configureStore();

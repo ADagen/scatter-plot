@@ -1,16 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import s from './App.css';
+import { dataset1, dataset2, dataset3 } from 'core/predefinedDatasets';
+import { plotActions } from 'dataLayer/actions';
+import { selectIsLoading, selectIsReady,selectIsError } from 'dataLayer/selectors';
 import { Loader } from '../Loader';
 import { Plot } from '../Plot';
 import { Error } from '../Error';
-import { plotActions } from '../../dataLayer/actions';
-import { dataset1, dataset2, dataset3 } from '../../core/predefinedDatasets';
-import {
-    selectIsLoading,
-    selectIsReady,
-    selectIsError,
-} from '../../dataLayer/selectors';
+import s from './App.css';
 
 type UrlInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => void;
 

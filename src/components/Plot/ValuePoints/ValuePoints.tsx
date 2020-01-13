@@ -1,7 +1,7 @@
 import React from 'react';
-import { Dataset } from '../../../dataLayer/RootState';
+import { Dataset } from 'dataLayer/RootState';
+import { CongruentTransform } from 'components/CongruentTransform';
 import { ValuePoint } from './ValuePoint';
-import { CongruentTransform } from '../../CongruentTransform';
 
 export type ValuePointsProps = {
     points: Dataset;

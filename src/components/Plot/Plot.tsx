@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
+import { startPoint, screenViewSize } from 'core/constants';
+import { selectPoints, selectExtremums, selectTrend, selectTitles } from 'dataLayer/selectors';
 import { Arrow } from './Markers/Arrow';
 import { Title } from './Title';
 import { XTitle } from './XTitle';
@@ -8,8 +10,6 @@ import { YTitle } from './YTitle';
 import { ValuePoints } from './ValuePoints';
 import { Trend } from './Trend';
 import { XAxis, YAxis, Basis } from './Axis';
-import { startPoint, screenViewSize } from '../../core/constants';
-import { selectPoints, selectExtremums, selectTrend, selectTitles } from '../../dataLayer/selectors';
 import s from './Plot.css';
 
 export type PlotProps = {

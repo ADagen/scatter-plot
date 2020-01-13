@@ -1,8 +1,8 @@
 import React from 'react';
+import { Point } from 'core/Geometry';
+import { numberFormatter } from 'core/numberFormatter';
+import { ticksOffsetsX, ticksCountX, plotViewSize, plotLegendPaddingSize } from 'core/constants';
 import { ARROW_SVG_REF } from '../Markers/Arrow';
-import { numberFormatter } from '../../../core/numberFormatter';
-import { ticksOffsetsX, ticksCountX, plotViewSize, plotLegendPaddingSize } from '../../../core/constants';
-import { Point } from '../../../dataLayer/Geometry';
 import s from './Axis.css';
 
 export type XAxisProps = {

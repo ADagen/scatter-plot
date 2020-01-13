@@ -1,4 +1,4 @@
-import { Point } from '../dataLayer/Geometry';
+import { Point } from 'core/Geometry';
 
 /**
  * Линейные размеры графика (не включая поля с подписями) в экранных координатах.

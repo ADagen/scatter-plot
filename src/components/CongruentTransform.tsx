@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { startPoint } from '../core/constants';
-import { selectExtremums, selectScales } from '../dataLayer/selectors';
+import { startPoint } from 'core/constants';
+import { selectExtremums, selectScales } from 'dataLayer/selectors';
 
 export type CongruentTransformProps = {
     className?: string,

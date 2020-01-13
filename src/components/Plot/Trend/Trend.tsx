@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectTrend, selectExtremums } from '../../../dataLayer/selectors';
-import { CongruentTransform } from '../../CongruentTransform';
+import { selectTrend, selectExtremums } from 'dataLayer/selectors';
+import { CongruentTransform } from 'components/CongruentTransform';
 import s from './Trend.css';
 
 export const Trend: React.FC = () => {

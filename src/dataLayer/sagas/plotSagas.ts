@@ -1,8 +1,8 @@
 import { call, put } from 'redux-saga/effects';
-import { takeRestartable } from './takeRestartable';
+import { dataset1 } from 'core/predefinedDatasets';
+import { loadPlotData } from 'dataLayer/api';
 import { actionTypes, plotActions, DatasetQueryPayload } from '../actions';
-import { dataset1 } from '../../core/predefinedDatasets';
-import { loadPlotData } from '../api';
+import { takeRestartable } from './takeRestartable';
 
 /**
  * Сценарий загрузки данных при старте приложения.

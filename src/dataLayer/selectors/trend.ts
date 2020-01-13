@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
+import { LinearFunction } from 'core/Geometry';
 import { RootState, Dataset } from '../RootState';
-import { LinearFunction } from '../Geometry';
 import { selectPoints } from './points';
 
 /**

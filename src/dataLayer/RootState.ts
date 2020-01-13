@@ -1,5 +1,5 @@
-import { Point } from './Geometry';
-import { DataState } from './DataState';
+import { Point } from 'core/Geometry';
+import { DataState } from 'core/DataState';
 
 export type Dataset = ReadonlyArray<Point>;
 

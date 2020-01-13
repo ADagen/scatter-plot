@@ -10,6 +10,7 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import * as threadLoader from 'thread-loader';
 
+import { resolveTsconfigPathsToWebpackAlias } from './resolve-tsconfig-paths-to-webpack-alias';
 import babelLoaderOptions from './babel-loader.webpack.config';
 import npmPackage from '../package';
 import projectConfig from '../config/projectConfig';
@@ -118,6 +119,10 @@ export const baseConfig = {
     resolve: {
         symlinks: false,
         extensions: RESOLVE_EXTENSIONS,
+        alias: resolveTsconfigPathsToWebpackAlias({
+            tsconfigPath: '../tsconfig.json',
+            webpackConfigBasePath: projectRoot,
+        }),
     },
 
     plugins: [

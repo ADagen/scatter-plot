@@ -1,6 +1,6 @@
 import { unionize, ofType, UnionOf } from 'unionize';
+import { APIResponse } from 'dataLayer/api/APIResponse';
 import { actionTypes } from './actionTypes';
-import { APIResponse } from '../APIResponse';
 
 export type DatasetQueryPayload = {
     url: string;

@@ -1,4 +1,4 @@
-import { Point } from './Geometry';
+import { Point } from 'core/Geometry';
 
 /**
  * Тип Point переиспользован, но в API по каким-то никому неизвестным причинам может приходить другой тип.

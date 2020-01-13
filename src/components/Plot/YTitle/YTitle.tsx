@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { screenViewSize } from '../../../core/constants';
+import { screenViewSize } from 'core/constants';
 import s from './YTitle.css';
 
 export type YTitleProps = {
@@ -9,7 +9,7 @@ export type YTitleProps = {
 }
 
 /**
- *
+ * Подпись к вертикальной оси
  * @param {string} text
  * @param {string} [className]
  */

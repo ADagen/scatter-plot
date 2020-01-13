@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect';
 import { RootState } from '../RootState';
-import { Point } from '../Geometry';
 
 export const selectPoints = createSelector(
     (state: RootState) => state.plotData,

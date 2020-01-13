@@ -1,8 +1,8 @@
 import React from 'react';
+import { numberFormatter } from 'core/numberFormatter';
+import { ticksOffsetsY, ticksCountY, plotViewSize, plotLegendPaddingSize } from 'core/constants';
+import { Point } from 'core/Geometry';
 import { ARROW_SVG_REF } from '../Markers/Arrow';
-import { numberFormatter } from '../../../core/numberFormatter';
-import { ticksOffsetsY, ticksCountY, plotViewSize, plotLegendPaddingSize } from '../../../core/constants';
-import { Point } from '../../../dataLayer/Geometry';
 import s from './Axis.css';
 
 export type YAxisProps = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { screenViewSize } from '../../../core/constants';
+import { screenViewSize } from 'core/constants';
 import s from './XTitle.css';
 
 export type XTitleProps = {

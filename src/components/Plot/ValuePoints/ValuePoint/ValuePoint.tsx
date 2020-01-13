@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Point } from '../../../../dataLayer/Geometry';
-import { selectScales } from '../../../../dataLayer/selectors';
-import { valuePointSize } from '../../../../core/constants';
+import { valuePointSize } from 'core/constants';
+import { Point } from 'core/Geometry';
+import { selectScales } from 'dataLayer/selectors';
 import s from './ValuePoint.css';
 
 export type ValuePointProps = Point & {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { selectExtremums } from 'dataLayer/selectors';
+import { CongruentTransform } from 'components/CongruentTransform';
+import { NonScalingText } from 'components/NonScalingText';
 import s from './Axis.css';
-import { CongruentTransform } from '../../CongruentTransform';
-import { NonScalingText } from '../../NonScalingText';
-import { selectExtremums } from '../../../dataLayer/selectors';
 
 /**
  * Вывод базисных векторов (ось абсцисс, ось ординат).

@@ -1,5 +1,5 @@
 import { createSelector, createStructuredSelector } from 'reselect';
-import { plotViewSize } from '../../core/constants';
+import { plotViewSize } from 'core/constants';
 import { RootState } from '../RootState';
 import { selectPointsX, selectPointsY } from './points';
 
